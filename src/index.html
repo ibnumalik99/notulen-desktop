@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notulen Desktop</title>
+</head>
+<body>
+  <h1>Notulen Desktop</h1>
+  <button id="start-meeting">Start Meeting</button>
+  <button id="stop-meeting">Stop Meeting</button>
+  <script>
+    document.getElementById('start-meeting').addEventListener('click', () => {
+      window.electronAPI.startMeeting();
+    });
+
+    document.getElementById('stop-meeting').addEventListener('click', () => {
+      window.electronAPI.stopMeeting();
+    });
+  </script>
+</body>
+</html>
