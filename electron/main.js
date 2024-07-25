@@ -11,6 +11,7 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
+      chromiumArgs: ['--no-sandbox', '--disable-setuid-sandbox']
     },
   });
 
@@ -34,31 +35,32 @@ app.on('window-all-closed', () => {
 });
 
 const client = new Notulen({
-    name: "My Assistant",
-    googleMeetUrl: "https://meet.google.com/kmt-ftvz-qap",
-    language: "id-ID",
-    geminiApiKey: "AIzaSyC6jfxBUCTV6LBcxYUdPnHU0gfQI81oXV8",
-    debug: false
+  name: "My Assistant",
+  googleMeetUrl: "https://meet.google.com/kmt-ftvz-qap",
+  language: "id-ID",
+  geminiApiKey: "AIzaSyC6jfxBUCTV6LBcxYUdPnHU0gfQI81oXV8",
+  debug: true,
+  chromiumArgs: ['--no-sandbox', '--disable-setuid-sandbox']
 });
 
 ipcMain.handle('start-meeting', async () => {
-    async function main() {
-        await client.listen();
+  async function main() {
+    await client.listen();
 
-        client.on("end", (result) => {
-            console.log("Summary:");
-            console.log(result.summary);
-        
-            process.exit(0);
-        });    
-    }
-    await main();
+    client.on("end", (result) => {
+      console.log("Summary:");
+      console.log(result.summary);
+
+      process.exit(0);
+    });    
+  }
+  await main();
 });
 
 ipcMain.handle('stop-meeting', async () => {
-    try {
-        await client.stop();
-    } catch (error) {
-        console.error('Error stopping meeting:', error);
-    }
+  try {
+    await client.stop();
+  } catch (error) {
+    console.error('Error stopping meeting:', error);
+  }
 });

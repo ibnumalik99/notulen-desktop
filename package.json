@@ -4,14 +4,46 @@
   "main": "electron/main.js",
   "scripts": {
     "start": "electron .",
+    "build": "electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "build": {
+    "appId": "com.yourcompany.notulen-desktop",
+    "directories": {
+      "buildResources": "electron/icons"
+    },
+    "files": [
+      "electron/**/*",
+      "src/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "target": ["dmg", "zip"]
+    },
+    "win": {
+      "target": ["nsis", "zip"]
+    },
+    "linux": {
+      "category": "Tools",
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm"
+      ],
+      "maintainer": "Malik <ibnumalikma282@gmail.com>"
+    }
+  },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "Malik",
+    "email": "ibnumalikma282@gmail.com"
+  },
   "license": "ISC",
-  "description": "",
+  "description": "A desktop application for Notulen",
   "devDependencies": {
-    "electron": "^31.2.1"
+    "electron": "^31.2.1",
+    "electron-builder": "^24.13.3"
   },
   "dependencies": {
     "@tarikhagustia/notulen": "1.3.0"
